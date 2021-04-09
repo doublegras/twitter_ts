@@ -1,7 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const env = require(`../env/${ process.env.NODE_ENV }`);
+const env = require(`../.env/${ process.env.NODE_ENV }`);
 const path = require('path');
 const app = require('../app');
 

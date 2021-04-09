@@ -1,5 +1,5 @@
 const session = require('express-session');
-const env = require(`../env/${ process.env.NODE_ENV }`);
+const env = require(`../.env/${ process.env.NODE_ENV }`);
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const app = require('../app');

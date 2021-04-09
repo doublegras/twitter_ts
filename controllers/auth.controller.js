@@ -14,7 +14,7 @@ const controllerAuth = {
       } else if (!user) {
         res.render('auth/auth-form', { errors: info.message });
       } else {
-        req.login(user, done, (err) => {
+        req.login(user, (err) => {
           err ? next(err) : res.redirect('/');
         })
       }
