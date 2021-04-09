@@ -1,0 +1,62 @@
+.content {
+  max-width: 1000px;
+  margin-top: 20px;
+}
+
+.profile-container {
+  width: 30%;
+  max-width: 300px;
+  margin-right: 15px;
+  color: rgba(85, 85, 85, 0.685);
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.img-fluid {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.btn-tweet {  
+  border-radius: 30px;
+}
+
+.b {
+  border: 1px solid red;
+}
+
+.b1 {
+  border: 1px solid green;
+}
+
+.formBtn {
+  margin-top: 10px;
+}
+
+.tweet-element {
+  font-size: 14px;
+  border-radius: 0px;
+  border: 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.tweet-element:first-child {
+  border: 0px;
+}
+
+.boutonDelete {
+  margin-top: 10px;
+  float: right;
+  height: 30px;
+  width: 30px;
+  padding: 0px;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+}
