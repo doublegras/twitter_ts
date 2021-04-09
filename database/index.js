@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
+const env = require(`../env/${ process.env.NODE_ENV }`);
 
 mongoose
-  .connect(
-    "mongodb+srv://marc:Dfrvnzazoo22_Mb@cluster0.rhhgb.mongodb.net/twitter?retryWrites=true&w=majority",
-    {
+  .connect( env.dbUrl,{
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
