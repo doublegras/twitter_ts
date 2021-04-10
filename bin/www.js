@@ -7,22 +7,18 @@ const app = require('../app');
 
 const port = process.env.PORT || 443;
 
-http.createServer((req, res) => {
+const httpServer = http.createServer((req, res) => {
   console.log('redirection https');
-  console.log({
-    host: req.headers.host,
-    url: req.url
-  });
-  res.writeHead(301, { Localtion: `https://${ req.headers.host }${ req.url }` });
+  res.writeHead(301, { Location: `https://${ req.headers.host.split(':')[0] + ':' + env.portHttps }${ req.url }` });
   res.end();
-}).listen(80);
+}).listen(env.portHttp);
 
-const server = https.createServer({
+const httpsServer = https.createServer({
   key: fs.readFileSync(env.key),
   cert: fs.readFileSync(env.cert)
 }, app);
 
-server.listen(443, () => {
-  console.log(`listening on port 443`);
+httpsServer.listen(env.portHttps, () => {
+  console.log(`listening on port ${ env.portHttps }`);
 });
 
