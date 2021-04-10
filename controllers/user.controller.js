@@ -8,7 +8,7 @@ const upload = multer(
   {
     storage: multer.diskStorage({
       destination: (req, file, done) => {
-        done(null, '/home/marc/developpement/web/nodejs/twitter_project/public/images/avatar')
+        done(null, env.fileDestination);
       },
       filename: (req, file, done) => {
         done(null, `${ Date.now() } - ${ file.originalname }`);
