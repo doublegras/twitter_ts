@@ -1,5 +1,6 @@
 const serviceUser = require('../services/user.service');
 const controllerTweet = require('./tweets.controller');
+const env = require(`../.env/${ process.env.NODE_ENV }`);
 const path = require('path');
 
 const multer = require('multer');
