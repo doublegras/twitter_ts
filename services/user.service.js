@@ -1,3 +1,4 @@
+const { searchUserPerUsername } = require('../controllers/user.controller');
 const User = require('../database/models/user.model');
 
 const serviceUser = {
@@ -41,6 +42,28 @@ const serviceUser = {
     return User.findOne({ 'local.googleId' : id }).exec();
   },
 
+  findUserPerUsername: (username) => {
+    return User.findOne({ username: username }).exec();
+  },
+
+  searchUserPerUsername: (search) => {
+    const reg = `^${ search }`;
+    const regexp = new RegExp(reg);
+    return User.find({ username: regexp }).exec();
+    //username: { $regex: regexp } aussi possible
+  },
+
+  addUserIdToCurrentUserFollowing: (currentUser, IdUserToFollow) => {
+    currentUser.following.push(IdUserToFollow);
+    return currentUser.save();
+  },
+
+  removeUserIdToCurrentUserFollowing: (currentUser, IdUserToUnFollow) => {
+    currentUser.following = currentUser.following.filter( 
+      userId => userId.toString() !== IdUserToUnFollow
+    );
+    return currentUser.save();
+  }
 }
 
 module.exports = serviceUser;

@@ -2,37 +2,23 @@ script(src="/javascript/profile.js")
 div(class="profile-container bg-white d-flex flex-column")
   form(id="form-container" class="d-flex flex-row justify-content-center align-items-center" action="/user/update/image" method="post" enctype="multipart/form-data")
     input(type="file" name="avatar" class="d-none" id="input-avatar")
-    img(src=currentUser.avatar class="img-fluid" id="image-profile")
+    img(src=user.avatar class="img-fluid pointer-cursor" id="image-profile")
   div(class="d-flex flex-row justify-content-center align-items-center")
-    p= `${ currentUser.username } (${ currentUser.local.email })`
+    p= `${ user.username } (${ user.local.email })`
+  if (currentUser.id.toString() !== user.id.toString() )
+      div(class="d-flex flex-row justify-content-center align-items-center")
+        if (currentUser.following.map( followerId => followerId.toString() ).includes(user.id.toString()))
+          a(class="btn btn-primary btn-unfollow" href="/user/unfollow/" + user.id) Unfollow
+        else
+          a(class="btn btn-outline-primary btn-follow" href="/user/follow/" + user.id) Follow  
   div(class="text-center d-flex flex-row justify-content-center align-items-center")
     div(class="flex-fill")
       p
-       strong Tweet
+        strong Tweet
         br
-        span(class="text-primary")= tweets.length
+        span(class="text-primary")= tweets.filter( tweet => tweet.author.id.toString() === user.id.toString() ).length
     div(class="flex-fill")
       p 
-        strong Followers
+        strong Following
         br
-        span(class="text-primary") -
-
-
-//- script(src="/javascript/profile.js")
-//- div(class="profile-container bg-white mr-3 d-flex flex-column")
-//-   form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/user/update/image" method="post" enctype="multipart/form-data" )
-//-     input(type="file" name="avatar" class="d-none" id="input-avatar")
-//-     img(src=currentUser.avatar class="img-fluid" id="image-profile")
-//-   div(class="d-flex flex-row justify-content-center align-items-center my-3")
-//-     p= `${ currentUser.username } (${ currentUser.local.email })`
-//-   div(class="text-center d-flex flex-row justify-content-center align-items-center my-3")
-//-     div(class="flex-fill")
-//-       p
-//-         strong Tweet
-//-         br
-//-         span(class="text-primary")= tweets && tweets.length ? tweets.length : "-"
-//-     div(class="flex-fill")
-//-       p
-//-         strong Following
-//-         br
-//-         span(class="text-primary") -
+        span(class="text-primary")= user.following.length

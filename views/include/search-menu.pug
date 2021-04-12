@@ -1,0 +1,8 @@
+div(class="search-menu d-flex flex-column")
+  if (users.length)
+    each user in users
+      a(class="d-flex flex-row align-items-center search-menu-items pointer-cursor" href="/user/" + user.username)
+        img(src=user.avatar class="p-2 imageTweet mb-0 mt-1" width="50" height="50")
+        span= user.username
+  else
+    span(class="p-3") Aucun utilisateur
