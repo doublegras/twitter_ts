@@ -55,13 +55,8 @@ const controllerUser = {
     upload.single('avatar'),
     async (req, res, next) => {
       try {
-        if (process.env.NODE_ENV === 'developpement') {
-          avatarDest = `images/avatar/${ req.file.filename }`;
-        } else {
-          avatarDest = `${ env.fileDestination }${ req.file.filename }`;
-        }
         const user = req.user;
-        user.avatar = avatarDest;
+        user.avatar = `images/avatar/${ req.file.filename }`;
         await user.save();
         res.redirect('/');
       } catch(e) {
