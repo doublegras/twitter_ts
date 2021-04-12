@@ -12,7 +12,7 @@ const upload = multer(
         done(null, env.fileDestination); 
       },
       filename: (req, file, done) => {
-        done(null, `${ Date.now() } - ${ file.originalname }`);
+        done(null, `${ Date.now() }-${ file.originalname }`);
       }
     }),
     limits: {
@@ -55,8 +55,13 @@ const controllerUser = {
     upload.single('avatar'),
     async (req, res, next) => {
       try {
+        if (process.env.NODE_ENV === 'developpement') {
+          avatarDest = `images/avatar/${ req.file.filename }`;
+        } else {
+          avatarDest = `${ env.fileDestination }${ req.file.filename }`;
+        }
         const user = req.user;
-        user.avatar = `/images/avatar/${ req.file.filename }`;
+        user.avatar = avatarDest;
         await user.save();
         res.redirect('/');
       } catch(e) {
