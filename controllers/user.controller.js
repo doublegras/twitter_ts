@@ -9,7 +9,7 @@ const upload = multer(
   { 
     storage: multer.diskStorage({
       destination: (req, file, done) => {
-        done(null, env.fileDestination);
+        done(null, env.fileDestination); 
       },
       filename: (req, file, done) => {
         done(null, `${ Date.now() } - ${ file.originalname }`);
