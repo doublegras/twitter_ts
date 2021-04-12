@@ -6,6 +6,7 @@
 .profile-container {
   width: 30%;
   max-width: 300px;
+  max-height: 300px;
   margin-right: 15px;
   color: rgba(85, 85, 85, 0.685);
 }
@@ -19,6 +20,7 @@ body {
   height: 150px;
   margin-bottom: 10px;
   margin-top: 10px;
+  border-radius: 10px;
 }
 
 .btn-tweet {  
@@ -139,4 +141,13 @@ a {
   font-weight: bold;
   border-radius: 30px;
   margin-bottom: 15px;
+}
+
+.btnConnexion {
+  display: block;
+  margin: auto;
+}
+
+.inputPassword {
+  margin-bottom: 20px;
 }
