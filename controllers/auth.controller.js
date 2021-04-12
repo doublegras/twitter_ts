@@ -37,7 +37,7 @@ const controllerAuth = {
 
   googleAuthCb: (req, res, next) => {
     passport.authenticate('google', {
-      successRedirect: '/protected',
+      successRedirect: '/tweets',
       failureRedirect: '/'
     })(req, res, next);
   }
