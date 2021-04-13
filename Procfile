@@ -1,1 +1,1 @@
-web: NODE_ENV=developpement node /bin/www.js
+web: NODE_ENV=developpement node twitter_project/bin/www.js
