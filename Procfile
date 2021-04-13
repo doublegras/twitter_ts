@@ -1,1 +1,1 @@
-web: node www.js
+web: NODE_ENV=developpement node bin/www.js
