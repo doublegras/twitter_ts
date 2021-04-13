@@ -1,6 +1,5 @@
 const serviceUser = require('../services/user.service');
 const serviceTweet = require('../services/tweet.service');
-const controllerTweet = require('./tweets.controller');
 const env = require(`../.env/${ process.env.NODE_ENV }`);
 const path = require('path');
 
@@ -9,7 +8,7 @@ const upload = multer(
   { 
     storage: multer.diskStorage({
       destination: (req, file, done) => {
-        done(null, env.fileDestination); 
+        done(null, path.join(__dirname, '../public/images/avatar')); 
       },
       filename: (req, file, done) => {
         done(null, `${ Date.now() }-${ file.originalname }`);
