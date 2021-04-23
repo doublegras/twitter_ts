@@ -41,11 +41,11 @@ const controllerUser = {
     try {
       const body = req.body;
       const user = await serviceUser.userCreate(body);
-      req.login(user, (err) => {
-        err ? next(err) : res.redirect('/');
-      })
+      req.login(user);
+      res.redirect('/tweets');
     } catch (err) {
       console.log(err);
+      res.render('/user/signup');
       next(err);
     }
   },

@@ -3,16 +3,23 @@ const morgan = require("morgan");
 const errorHandler = require('errorhandler'); 
 const path = require("path")
 const routing = require("./routes/index.route");
+const cookieParser = require("cookie-parser");
 require("./database/index");
 const app = express();
 
 module.exports = app;
 
-require('./config/session.config');
+const jwtAuth = require('./config/jwt.config');
+app.use(cookieParser());
+
+
 require('./config/passport.config');
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+app.use(jwtAuth.extractUserFromToken);
+app.use(jwtAuth.addJwtFeatures);
 
 app.use(morgan("short"));
 app.use(express.static(path.join(__dirname, "public")));

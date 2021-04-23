@@ -1,7 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
   //bindTweet est récursive pour recréer les listener sur la nouvelle liste de tweet
   bindTweet();
-
 })
 
 function bindTweet() {

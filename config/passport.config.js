@@ -4,33 +4,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const serviceUser = require('../services/user.service');
 const app = require('../app');
+const jwtConfig = require('./jwt.config');
 
 app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use('local', new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-  try {
-    const user = await serviceUser.findUserPerEmail(email);
-    if (user) {
-      const match = await user.comparePassword(password);
-      if (match) {
-        done(null, user);
-      } else {
-        done(null, false, { message: 'wrong password' });
-      }
-    } else {
-      done(null, false, { message: 'user not found' });
-    }
-  } catch (err) {
-    done(err);
-  }
-}))
 
 passport.use('google', new GoogleStrategy({
   clientID: env.googleAuthClientId,
   clientSecret: env.googleAuthClientSecret,
-  callbackURL: '/auth/google/cb'
-}, async (accessToken, refreshToken, profile, done) => {
+  callbackURL: '/auth/google/cb',
+}, async (accessToken, refreshToken, profile, done, req, res) => {
   try {
     const user = await serviceUser.findUserPerGoogleId(profile.id);
     if (user) {

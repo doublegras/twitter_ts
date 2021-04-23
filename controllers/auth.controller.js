@@ -1,46 +1,51 @@
-const passport = require("passport");
+const passport = require('passport');
+const serviceUser = require("../services/user.service");
+const jwt = require('jsonwebtoken');
 
 const controllerAuth = {
 
-  sessionNew: (req, res, next) => {
+  signInForm: (req, res, next) => {
     res.render('auth/auth-form', { errors: null });
   },
 
-  sessionCreate: (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-      if (err) {
-        console.log(err);
-        next(err);
-      } else if (!user) {
-        res.render('auth/auth-form', { errors: info.message });
+  signIn: async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const user = await serviceUser.findUserPerEmail(email);
+      if (user) {
+        const match = await user.comparePassword(password);
+        if (match) {
+          req.login(user);
+          res.redirect('/tweets');
+        } else {
+          res.render('auth/auth-form', { errors: 'wrong password' });
+        }
       } else {
-        req.login(user, (err) => {
-          err ? next(err) : res.redirect('/');
-        })
+        res.render('auth/auth-form', { errors: 'user not found' });
       }
-    })(req, res, next);
+    } catch (err) {
+      next(err);
+    }
   },
 
-  sessionDelete: (req, res, next) => {
+  signOut: (req, res, next) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/auth/signin/form');
   },
 
-  googleAuth: (req, res, next) => {
-    passport.authenticate('google', {
+  googleAuth:passport.authenticate('google', {
+      session: false,
       scope: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]
-    })(req, res, next);
-  },
+    }),
 
-  googleAuthCb: (req, res, next) => {
-    passport.authenticate('google', {
+  googleAuthCb: passport.authenticate('google', {
+      session: false,
       successRedirect: '/tweets',
       failureRedirect: '/'
-    })(req, res, next);
-  }
+    }),
 }
 
 module.exports = controllerAuth;
