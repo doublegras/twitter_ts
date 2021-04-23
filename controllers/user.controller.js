@@ -55,7 +55,7 @@ const controllerUser = {
     async (req, res, next) => {
       try {
         const user = req.user;
-        user.avatar = `images/avatar/${ req.file.filename }`;
+        user.avatar = `/images/avatar/${ req.file.filename }`;
         await user.save();
         res.redirect('/');
       } catch(e) {

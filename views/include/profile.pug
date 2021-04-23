@@ -1,7 +1,8 @@
 script(src="/javascript/profile.js") 
 div(class="profile-container bg-white d-flex flex-column")
   form(id="form-container" class="d-flex flex-row justify-content-center align-items-center" action="/user/update/image" method="post" enctype="multipart/form-data")
-    input(type="file" name="avatar" class="d-none" id="input-avatar")
+    if (currentUser.id.toString() == user.id.toString() )
+      input(type="file" name="avatar" class="d-none" id="input-avatar")
     img(src=user.avatar class="img-fluid pointer-cursor" id="image-profile")
   div(class="d-flex flex-row justify-content-center align-items-center")
     p= `${ user.username } (${ user.local.email })`
