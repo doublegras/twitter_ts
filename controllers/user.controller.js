@@ -1,6 +1,6 @@
 const serviceUser = require('../services/user.service');
 const serviceTweet = require('../services/tweet.service');
-const env = require(`../.env/${ process.env.NODE_ENV }`);
+const emailFactory = require('../email/email');
 const path = require('path');
 
 const multer = require('multer');
@@ -37,15 +37,24 @@ const controllerUser = {
     res.render('user/user-form');
   },
 
-  createUser: async (req, res, next) => {
+  userSignUp: async (req, res, next) => {
     try {
       const body = req.body;
       const user = await serviceUser.userCreate(body);
       req.login(user);
+      emailFactory.sendVerificationEmail({
+        to: user.local.email,
+        host: req.hostname,
+        username: user.username,
+        userId: user.id,
+        token: user.local.emailToken
+      })
       res.redirect('/tweets');
     } catch (err) {
       console.log(err);
-      res.render('/user/signup');
+      res.render('/user/user-form', {
+        error: [err.message]
+      });
       next(err);
     }
   },
@@ -115,6 +124,22 @@ const controllerUser = {
         serviceUser.findUserPerId(userId)
       ]);
       res.redirect(`/user/${ user.username }`);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  emailVerification: async (req, res, next) => {
+    try {
+      const { userId, userToken } = req.params;
+      const user = await serviceUser.findUserPerId(userId);
+      if (user && userToken && userToken === user.local.emailToken) {
+        user.local.emailVerified = true;
+        await user.save();
+        res.redirect('/tweets');
+      } else {
+        res.status(400).json('problem during email verification');
+      }
     } catch (err) {
       next(err);
     }

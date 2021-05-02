@@ -5,10 +5,12 @@ const bcrypt = require('bcrypt');
 const userSchema = schema({
   username: { type: String, unique: true },
   local: {
-    email: { type: String, required: true, unique: true },
+    email: {type: String, required: true, unique: true },
+    emailVerified: { type: Boolean, default: false },
+    emailToken: String,
     password: String,
     googleId: String
-  },
+  },  
   avatar: { type: String, default: '/images/avatar/no-user.jpeg' },
   following: { type: [schema.Types.ObjectId], ref: 'users' }
 })

@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const controller = require('../controllers/tweets.controller');
+const controllerTweet = require('../controllers/tweets.controller');
 
-router.get('/', controller.tweetList);
-router.get('/new', controller.tweetNew);
-router.get('/edit/:tweetId', controller.tweetEdit);
-router.post('/', controller.tweetCreate);
-router.post('/update/:tweetId', controller.tweetUpdate);
-router.delete('/:tweetId', controller.tweetDelete);
+router.get('/', controllerTweet.tweetList);
+router.get('/new', controllerTweet.tweetNew);
+router.get('/edit/:tweetId', controllerTweet.tweetEdit);
+router.post('/', controllerTweet.tweetCreate);
+router.post('/update/:tweetId', controllerTweet.tweetUpdate);
+router.delete('/:tweetId', controllerTweet.tweetDelete);
 
 module.exports = router;

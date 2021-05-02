@@ -1,5 +1,6 @@
 const { searchUserPerUsername } = require('../controllers/user.controller');
 const User = require('../database/models/user.model');
+const { v4: uuidv4 } = require('uuid');
 
 const serviceUser = {
 
@@ -10,7 +11,9 @@ const serviceUser = {
         username: user.username,
         local: {
           email: user.email,
-          password: hashedPassword
+          password: hashedPassword,
+          //genere universal unique identifier
+          emailToken: uuidv4()
         }
       })
       return newUser.save();

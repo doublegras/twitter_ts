@@ -3,6 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const inputAvatar = document.querySelector('#input-avatar');
   const formContainer = document.querySelector('#form-container');
 
+  console.log(document.cookie);
+
   imageProfile.addEventListener('click', () => {
     inputAvatar.click(); //click() simule un click
   })
