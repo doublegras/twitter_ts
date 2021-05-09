@@ -1,9 +1,8 @@
-const { searchUserPerUsername } = require('../controllers/user.controller');
-const User = require('../database/models/user.model');
-const { v4: uuidv4 } = require('uuid');
+const { searchUserPerUsername } = require("../controllers/user.controller");
+const User = require("../database/models/user.model");
+const { v4: uuidv4 } = require("uuid");
 
 const serviceUser = {
-
   userCreate: async (user) => {
     try {
       hashedPassword = await User.hashPassword(user.password);
@@ -13,12 +12,12 @@ const serviceUser = {
           email: user.email,
           password: hashedPassword,
           //genere universal unique identifier
-          emailToken: uuidv4()
-        }
-      })
+          emailToken: uuidv4(),
+        },
+      });
       return newUser.save();
     } catch (err) {
-      throw(err);
+      throw err;
     }
   },
 
@@ -27,14 +26,15 @@ const serviceUser = {
       username: username,
       local: {
         email: email,
-        googleId: id
-      }
-    })
+        googleId: id,
+        emailToken: uuidv4(),
+      },
+    });
     return newUser.save();
   },
 
   findUserPerEmail: (email) => {
-    return User.findOne({'local.email' : email}).exec();
+    return User.findOne({ "local.email": email }).exec();
   },
 
   findUserPerId: (id) => {
@@ -42,7 +42,7 @@ const serviceUser = {
   },
 
   findUserPerGoogleId: (id) => {
-    return User.findOne({ 'local.googleId' : id }).exec();
+    return User.findOne({ "local.googleId": id }).exec();
   },
 
   findUserPerUsername: (username) => {
@@ -50,7 +50,7 @@ const serviceUser = {
   },
 
   searchUserPerUsername: (search) => {
-    const reg = `^${ search }`;
+    const reg = `^${search}`;
     const regexp = new RegExp(reg);
     return User.find({ username: regexp }).exec();
     //username: { $regex: regexp } aussi possible
@@ -62,11 +62,11 @@ const serviceUser = {
   },
 
   removeUserIdToCurrentUserFollowing: (currentUser, IdUserToUnFollow) => {
-    currentUser.following = currentUser.following.filter( 
-      userId => userId.toString() !== IdUserToUnFollow
+    currentUser.following = currentUser.following.filter(
+      (userId) => userId.toString() !== IdUserToUnFollow
     );
     return currentUser.save();
-  }
-}
+  },
+};
 
 module.exports = serviceUser;

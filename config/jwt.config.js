@@ -18,7 +18,7 @@ const checkExpirationToken = (token, res) => {
     return token;
   } else if (nowInSec > tokenExp && ((nowInSec - tokenExp) < 86400 * 14)) {
     const refreshToken = createToken({id: token.sub});
-    res.cookie('jwt', refreshToken, { secure: true, httpOnly: true });
+    res.cookie('jwt', refreshToken, { secure: true, httpOnly: true, domain: env.domain });
     return jwt.verify(refreshToken, jwtSecret);
   } else {
     throw new Error('token expired');
@@ -55,7 +55,7 @@ const jwtAuth = {
     req.isAuthenticated = () => !!req.user;
     req.login = (user) => {
       const token = createToken({user});
-      res.cookie('jwt', token, { secure: true, httpOnly: true });
+      res.cookie('jwt', token, { secure: true, httpOnly: true, domain: env.domain });
     }
     req.logout = () => res.clearCookie('jwt');
     next();

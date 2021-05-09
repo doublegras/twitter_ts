@@ -1,11 +1,10 @@
-const passport = require('passport');
+const passport = require("passport");
 const serviceUser = require("../services/user.service");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const controllerAuth = {
-
   signInForm: (req, res, next) => {
-    res.render('auth/auth-form', { errors: null });
+    res.render("auth/auth-form", { errors: null });
   },
 
   signIn: async (req, res, next) => {
@@ -16,12 +15,12 @@ const controllerAuth = {
         const match = await user.comparePassword(password);
         if (match) {
           req.login(user);
-          res.redirect('/tweets');
+          res.redirect("/tweets");
         } else {
-          res.render('auth/auth-form', { errors: 'wrong password' });
+          res.render("auth/auth-form", { errors: ["wrong password"] });
         }
       } else {
-        res.render('auth/auth-form', { errors: 'user not found' });
+        res.render("auth/auth-form", { errors: ["user not found"] });
       }
     } catch (err) {
       next(err);
@@ -30,22 +29,22 @@ const controllerAuth = {
 
   signOut: (req, res, next) => {
     req.logout();
-    res.redirect('/auth/signin/form');
+    res.redirect("/auth/signin/form");
   },
 
-  googleAuth:passport.authenticate('google', {
-      session: false,
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile'
-      ]
-    }),
+  googleAuth: passport.authenticate("google", {
+    session: false,
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+    ],
+  }),
 
-  googleAuthCb: passport.authenticate('google', {
-      session: false,
-      successRedirect: '/tweets',
-      failureRedirect: '/'
-    }),
-}
+  googleAuthCb: passport.authenticate("google", {
+    session: false,
+    successRedirect: "/tweets",
+    failureRedirect: "/",
+  }),
+};
 
 module.exports = controllerAuth;

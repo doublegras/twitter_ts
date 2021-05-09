@@ -13,6 +13,7 @@ const controllerTweet = {
   },
 
   tweetNew: (req, res, next) => {
+    console.log(req.headers.range);
     res.render('tweets/tweet-form', { tweet: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user, user: req.user }); //on donne un objet tweet vide pour eviter les erreurs
   },
 

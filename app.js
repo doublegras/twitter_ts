@@ -11,6 +11,7 @@ module.exports = app;
 
 const jwtAuth = require('./config/jwt.config');
 app.use(cookieParser());
+app.disable('x-powered-by');
 
 
 require('./config/passport.config');
