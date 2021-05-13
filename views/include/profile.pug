@@ -17,7 +17,8 @@ div(class="profile-container bg-white d-flex flex-column")
       p
         strong Tweet
         br
-        span(class="text-primary")= tweets.filter( tweet => tweet.author.id.toString() === user.id.toString() ).length
+        if (tweets)
+          span(class="text-primary")= tweets.filter( tweet => tweet.author.id.toString() === user.id.toString() ).length
     div(class="flex-fill")
       p 
         strong Following

@@ -1,0 +1,18 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var user_controller_1 = require("../controllers/user.controller");
+var guard_config_1 = require("../config/guard.config");
+var router = express_1.Router();
+router.get("/", user_controller_1["default"].userList);
+router.get("/follow/:userId", user_controller_1["default"].followUser);
+router.get("/unfollow/:userId", user_controller_1["default"].unfollowUser);
+router.get("/:username", user_controller_1["default"].userProfile);
+router.get("/signup/form", user_controller_1["default"].newUser);
+router.post("/signup", user_controller_1["default"].userSignUp);
+router.post("/update/image", guard_config_1.ensureAuthenticated, user_controller_1["default"].uploadImage);
+router.get("/email-verification/:userId/:userToken", user_controller_1["default"].emailVerification);
+router.post("/forgot-password", user_controller_1["default"].initResetPassword);
+router.get("/reset-password/:userId/:token", user_controller_1["default"].resetPasswordForm);
+router.post("/reset-password/:userId/:token", user_controller_1["default"].resetPassword);
+exports["default"] = router;
