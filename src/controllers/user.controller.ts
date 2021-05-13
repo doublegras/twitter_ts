@@ -64,8 +64,6 @@ const controllerUser = {
       res.redirect("/tweets");
     } catch (err) {
       console.log(err);
-      console.log("ERRRRRRRRR");
-
       res.render("user/user-form", {
         error: [err.message],
       });

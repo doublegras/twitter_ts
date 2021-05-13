@@ -22,8 +22,8 @@ class Email {
                 host: "smtp.mailtrap.io",
                 port: 587,
                 auth: {
-                    user: "68595eb5060734",
-                    pass: "022fe95ccfc31c",
+                    user: env.mailtrap.user,
+                    pass: env.mailtrap.pass,
                 },
             });
         }
@@ -36,7 +36,7 @@ class Email {
                 subject: "Email de vérification",
                 html: pug_1.default.renderFile(path_1.default.join(__dirname, "../../templates/email-verification.pug"), {
                     username: options.username,
-                    url: `https://${options.host}:${env.portHttps}/user/email-verification/${options.userId}/${options.token}`,
+                    url: `https://${options.host}/user/email-verification/${options.userId}/${options.token}`,
                 }),
             };
             const data = await this.transporter.sendMail(email);

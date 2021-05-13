@@ -65,7 +65,6 @@ const controllerUser = {
         }
         catch (err) {
             console.log(err);
-            console.log("ERRRRRRRRR");
             res.render("user/user-form", {
                 error: [err.message],
             });
