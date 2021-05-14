@@ -55,10 +55,10 @@ const controllerUser = {
       const user = await serviceUser.userCreate(body);
       emailFactory.sendVerificationEmail({
         to: user.local.email,
-        host: req.headers.host,
         username: user.username,
         userId: user.id,
         token: user.local.emailToken,
+        host: req.headers.host!,
       });
       req.login(user);
       res.redirect("/tweets");
@@ -182,9 +182,9 @@ const controllerUser = {
           await user.save();
           emailFactory.sendResetPasswordLink({
             to: email,
-            host: req.headers.host,
             userId: user.id,
             token: user.local.passwordToken,
+            host: req.headers.host!,
           });
           res.status(200).end();
         } else {

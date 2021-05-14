@@ -8,7 +8,7 @@ export interface IEmail {
 export interface IEmailOptions {
   to: string;
   username?: string;
-  host?: string;
   userId?: string;
   token?: string;
+  host: string;
 }

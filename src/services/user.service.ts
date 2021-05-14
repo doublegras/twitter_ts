@@ -38,7 +38,7 @@ const serviceUser = {
     return User.findOne({ "local.email": email }).exec();
   },
 
-  findUserPerId: (id: string) => {
+  findUserPerId: (id: string): Promise<IUser | null> => {
     return User.findById(id).exec();
   },
 
