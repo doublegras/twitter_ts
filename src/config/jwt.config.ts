@@ -10,7 +10,7 @@ const createToken = (userId: string) => {
   const jwtToken = jwt.sign(
     {
       sub: userId,
-      exp: Math.floor(Date.now() / 1000) + 60 * 20, // 20min idéal
+      exp: Math.floor(Date.now() / 1000) + 10, // 20min idéal
     },
     jwtSecret
   );
@@ -22,7 +22,7 @@ const checkExpirationToken = (token: any, res: Response) => {
   const nowInSec = Math.floor(Date.now() / 1000);
   if (nowInSec <= tokenExp) {
     return token;
-  } else if (nowInSec > tokenExp && nowInSec - tokenExp < 86400 * 14) {
+  } else if (nowInSec > tokenExp && nowInSec - tokenExp < 5) {
     const refreshToken = createToken(token.sub);
     res.cookie("jwt", refreshToken, {
       secure: true,

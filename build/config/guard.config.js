@@ -1,7 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.ensureAuthenticated = void 0;
-exports.ensureAuthenticated = (req, res, next) => {
+exports.ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
         //console.log(req.user.local.email);
         next();

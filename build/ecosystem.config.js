@@ -1,6 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+exports.__esModule = true;
+exports["default"] = {
     apps: [
         {
             name: "twitter-project",
@@ -9,12 +9,12 @@ exports.default = {
             watch: true,
             autorestart: true,
             env: {
-                NODE_ENV: "developpement",
+                NODE_ENV: "developpement"
             },
             env_production: {
-                NODE_ENV: "production",
-            },
+                NODE_ENV: "production"
+            }
         },
-    ],
+    ]
 };
 //# sourceMappingURL=ecosystem.config.js.map
